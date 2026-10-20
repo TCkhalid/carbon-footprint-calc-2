@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Calculator</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container-fluid py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <!-- 1. Main Heading (h1) -->
+                <h1 class="display-4 fw-bold text-success">Carbon Footprint Calculator</h1>
+                
+                <!-- 2. Subheading (h2) -->
+                <h2 class="h4 text-secondary mb-4">Climate change is real!!</h2>
+                
+                <!-- 3. Introduction Paragraph (p) -->
+                <p class="lead text-muted">
+                    Human activities release greenhouse gases that trap heat in the atmosphere, driving global climate change. 
+                    Understanding your personal carbon footprint is the first step toward reducing your environmental impact and preserving our planet for future generations.
+                </p>
+                
+                <!-- 4. Image (img) -->
+                <div class="my-4">
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80" alt="Environmental Sustainability" class="img-fluid rounded shadow-sm" style="max-height: 400px; object-fit: cover;">
+                </div>
+                
+                <!-- 5. Secondary Heading (h4) -->
+                <h4 class="mt-4 text-dark">Are you ready to assess your carbon footprint?</h4>
+                
+                <!-- 6. Supporting Paragraph (p) -->
+                <p class="text-muted">Take a few moments to evaluate your daily habits and see how you can contribute to a greener, more sustainable future.</p>
+                
+                <!-- 7. Calculate Button (a tag styled as a blue button) -->
+                <a href="#" class="btn btn-primary btn-lg mt-3" data-bs-toggle="modal" data-bs-target="#calculatorModal">Calculate</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calculator Modal -->
+    <div class="modal fade" id="calculatorModal" tabindex="-1" aria-labelledby="calculatorModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-success text-white">
+            <h5 class="modal-title" id="calculatorModalLabel">Carbon Footprint Estimator</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="footprintForm">
+              <div class="mb-3">
+                <label for="electricity" class="form-label">Monthly Electricity Bill ($):</label>
+                <input type="number" class="form-control" id="electricity" required min="0" value="100">
+              </div>
+              <div class="mb-3">
+                <label for="carMiles" class="form-label">Weekly Car Mileage (miles):</label>
+                <input type="number" class="form-control" id="carMiles" required min="0" value="150">
+              </div>
+              <div class="mb-3">
+                <label for="flights" class="form-label">Flights taken in the past year:</label>
+                <input type="number" class="form-control" id="flights" required min="0" value="2">
+              </div>
+              <button type="button" class="btn btn-success w-100" onclick="calculateFootprint()">Calculate Footprint</button>
+            </form>
+            
+            <div id="resultArea" class="mt-4 text-center d-none">
+              <h5>Your Estimated Carbon Footprint:</h5>
+              <p class="fs-4 fw-bold text-success" id="resultText"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Calculation Logic Script -->
+    <script>
+        function calculateFootprint() {
+            const electricity = parseFloat(document.getElementById('electricity').value) || 0;
+            const carMiles = parseFloat(document.getElementById('carMiles').value) || 0;
+            const flights = parseFloat(document.getElementById('flights').value) || 0;
+
+            // Estimation formulas for CO2 emissions in metric tons per year
+            const co2Electricity = electricity * 12 * 0.006;
+            const co2Car = carMiles * 52 * 0.00037;
+            const co2Flights = flights * 0.5;
+
+            const totalCO2 = (co2Electricity + co2Car + co2Flights).toFixed(2);
+
+            const resultText = document.getElementById('resultText');
+            resultText.innerHTML = `${totalCO2} metric tons of CO₂ per year`;
+            
+            document.getElementById('resultArea').classList.remove('d-none');
+        }
+    </script>
+</body>
+</html>
